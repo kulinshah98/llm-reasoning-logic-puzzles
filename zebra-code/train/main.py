@@ -61,8 +61,6 @@ def get_config():
   """
 
   config = ml_collections.ConfigDict()
-  config.dataset = 'zebra'
-  config.length_gen_test = False
   config.max_n = 6
   config.max_m1 = 6
 
@@ -102,7 +100,7 @@ def get_config():
   config.set_accuracy = "top-k"
   config.set_accuracy_top_k = 10
   config.beam_search_n = 1
-  config.dataset_path = "./zebra-train-data.pkl"
+  config.dataset_path = None
 
   return config
 

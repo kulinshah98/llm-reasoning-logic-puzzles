@@ -37,9 +37,16 @@ The dataset for the Sudoku and Zebra both puzzles is given in [Link](https://dri
 
 - `zebra-train-data.pkl` contains around 1.5M puzzles and `zebra-test-data.pkl` contains around 0.1M puzzles with number of entities (houses) and number of attributes (properties) in the range of 3 to 6. 
 - Each example contains a list with 3 elements. 
-    - First element of the list contains the list of the clues/hints for the puzzle in the symbolic language. 
-    - Second element of the list contains the solution box. 
-    - Third element of the list contains the order in which solver decides values in the solution box. Intuitively, the solver tries to fill the easy-to-decode cells. 
+- First element of the list contains the list of the clues/hints for the puzzle in the symbolic language. 
+    - Clues are given in ``[Clue type] LHS [c/n] [attr1/house_no1] [val1] RHS [c/n] [attr2/house_no2] [val2] CLUE_END``. 
+        - Clue type denotes the relation between attributes (See paper for more details on the cluetypes). 
+        - [c/n] denotes whether the following information is about attribute or a house. 'c' denotes that it is for the attribute and 'n' denotes that it is for the house numbering.
+
+    - Example: "immediate-left LHS n 0 2 RHS c 1 2 CLUE_END'. This means that house number 2 is immediate left of the house whose first attribute is 2. 
+- Second element of the list contains the solution box. 
+    - The first row always contains house numbers.
+    - From second row, the ith list contains information about (i-1)th attribute. 
+- Third element of the list contains the order in which solver decides values in the solution box. Intuitively, the solver tries to fill the easy-to-decode cells. 
 
 
 
@@ -56,6 +63,19 @@ bash scripts/train.sh
 ```
 
 To change the hyperparameters of the training, check `sudoku-code/train/main.py` file.
+
+
+## Training a model on the zebra puzzle
+
+Similarly to the sudoku puzzles, to train a new model, set the experiment name in {EXP_NAME} and work directory name in {WORKDIR} in scripts/train.sh file and run the following two commands:
+
+```
+cd zebra-code
+bash scripts/train.sh
+```
+
+To change the hyperparameters of the training, check `zebra-code/train/main.py` file.
+
 
 
 ### Acknowledgement
