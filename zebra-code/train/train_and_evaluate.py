@@ -67,7 +67,7 @@ def log_hyperparams_tb(
   ]
 
   if config.use_wandb:
-    wandb.init(project="sudoku", name=expdir, config=config, dir="./logs/wandb")
+    wandb.init(project="llm-reasoning-logic-puzzles", name=expdir, config=config, dir="./logs/wandb")
 
   with tf_summary_writer.as_default():
     tf.summary.text(
